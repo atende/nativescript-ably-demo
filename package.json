@@ -1,0 +1,38 @@
+{
+  "description": "NativeScript Application",
+  "license": "SEE LICENSE IN <your-license-filename>",
+  "readme": "NativeScript Application",
+  "repository": "<fill-your-repository-here>",
+  "nativescript": {
+    "id": "org.nativescript.nativescriptablydemo",
+    "tns-android": {
+      "version": "2.1.1"
+    }
+  },
+  "scripts": {
+    "live.android": "tns plugin remove nativescript-ably && tns plugin add ../nativescript-ably && tns livesync android --watch"
+  },
+  "dependencies": {
+    "@angular/common": "^2.0.0-rc.4",
+    "@angular/compiler": "^2.0.0-rc.4",
+    "@angular/core": "^2.0.0-rc.4",
+    "@angular/http": "2.0.0-rc.4",
+    "@angular/platform-browser": "^2.0.0-rc.4",
+    "@angular/platform-browser-dynamic": "^2.0.0-rc.4",
+    "@angular/platform-server": "2.0.0-rc.4",
+    "@angular/router": "3.0.0-beta.2",
+    "nativescript-ably": "file:../nativescript-ably",
+    "nativescript-angular": "0.2.0",
+    "rxjs": "^5.0.0-beta.6",
+    "tns-core-modules": "^2.1.0",
+    "zone.js": "^0.6.12"
+  },
+  "devDependencies": {
+    "babel-traverse": "6.10.4",
+    "babel-types": "6.11.1",
+    "babylon": "6.8.4",
+    "lazy": "1.0.11",
+    "nativescript-dev-typescript": "^0.3.2",
+    "typescript": "^1.8.10"
+  }
+}

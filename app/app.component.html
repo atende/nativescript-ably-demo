@@ -1,0 +1,9 @@
+<StackLayout>
+    <Button text="Connect" (tap)="connect()"></Button>
+    <Button text="Disconnect" (tap)="disconnect()"></Button>
+    <Button text="Send message" (tap)="sendMessage()"></Button>
+    <TextField hint="Key" [(ngModel)]="key"></TextField>
+    <Label [text]="channelId"></Label>
+    <Label [text]="status | async" class="message" textWrap="true"></Label>
+    <Label [text]="message | async" class="message" textWrap="true"></Label>
+</StackLayout>
