@@ -8,9 +8,10 @@ require('rxjs/add/operator/do');
 var AppComponent = (function () {
     function AppComponent(ngZone) {
         this.ngZone = ngZone;
-        this.key = "I2E_JQ.IoeWDw:WrRgJ5LEUCCIm5Tp";
+        this.key = "I2E_JQ.tmuqtg:GXNuC29zQcu48Lez";
         this.channelId = "technology";
-        this.message = new rxjs_1.Subject();
+        this.messagesReceived = new rxjs_1.Subject();
+        this.message = "";
         this.status = new rxjs_1.Subject();
     }
     AppComponent.prototype.connect = function () {
@@ -25,7 +26,7 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.sendMessage = function () {
         if (this.ably) {
-            var object = JSON.stringify({ msg: "Hello from code", from: "Code" });
+            var object = JSON.stringify({ msg: this.message, from: "Code" });
             this.ably.channels.get(this.channelId)
                 .publishData("chat", object)
                 .subscribe();
@@ -35,7 +36,7 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.onMessage = function (message) {
         var json = JSON.parse(message);
-        this.message.next(json.from + ": " + json.msg);
+        this.messagesReceived.next(json.from + ": " + json.msg);
     };
     AppComponent.prototype.onConnectionChange = function (change) {
         this.status.next(change.current);

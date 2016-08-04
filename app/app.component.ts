@@ -1,6 +1,6 @@
 import {Component, NgZone} from "@angular/core";
 import * as dialog from "ui/dialogs";
-import {createRealtimeConnection, AblyRealtime, Message, ConnectionStateChange, ConnectionState} from "nativescript-ably"
+import {AblyRealtime, Message, ConnectionStateChange, ConnectionState} from "nativescript-ably"
 import {Observable, Subject} from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -11,9 +11,10 @@ declare var java: any;
 })
 export class AppComponent {
     private ably: AblyRealtime
-    key = "I2E_JQ.IoeWDw:WrRgJ5LEUCCIm5Tp"
+    key = "I2E_JQ.tmuqtg:GXNuC29zQcu48Lez"
     channelId = "technology"
-    message = new Subject<string>()
+    messagesReceived = new Subject<string>()
+    message = ""
     status = new Subject<string>()
     constructor(private ngZone: NgZone){
 
@@ -34,7 +35,7 @@ export class AppComponent {
     public sendMessage() {
 
         if (this.ably) {
-            let object = JSON.stringify({msg: "Hello from code", from: "Code"})
+            let object = JSON.stringify({msg: this.message, from: "Code"})
             this.ably.channels.get(this.channelId)
                 .publishData("chat", object)
                 .subscribe()
@@ -45,7 +46,7 @@ export class AppComponent {
 
     public onMessage(message: any) {
         let json = JSON.parse(message)
-        this.message.next(json.from + ": " +json.msg)
+        this.messagesReceived.next(json.from + ": " +json.msg)
     }
 
     public onConnectionChange(change: ConnectionStateChange) {
