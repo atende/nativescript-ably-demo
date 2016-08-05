@@ -3,10 +3,8 @@ var core_1 = require("@angular/core");
 var dialog = require("ui/dialogs");
 var nativescript_ably_1 = require("nativescript-ably");
 var rxjs_1 = require('rxjs');
-require('rxjs/add/operator/map');
-require('rxjs/add/operator/do');
-var AppComponent = (function () {
-    function AppComponent(ngZone) {
+var MessageComponent = (function () {
+    function MessageComponent(ngZone) {
         this.ngZone = ngZone;
         this.key = "I2E_JQ.tmuqtg:GXNuC29zQcu48Lez";
         this.channelId = "technology";
@@ -14,7 +12,7 @@ var AppComponent = (function () {
         this.message = "";
         this.status = new rxjs_1.Subject();
     }
-    AppComponent.prototype.connect = function () {
+    MessageComponent.prototype.connect = function () {
         var _this = this;
         this.ably = new nativescript_ably_1.AblyRealtime(this.key);
         var channel = this.ably.channels.get(this.channelId);
@@ -24,7 +22,7 @@ var AppComponent = (function () {
             .subscribe(function (m) { return _this.ngZone.run(function () { return _this.onMessage(m); }); });
         this.ably.connection.on().subscribe(function (c) { return _this.ngZone.run(function () { return _this.onConnectionChange(c); }); });
     };
-    AppComponent.prototype.sendMessage = function () {
+    MessageComponent.prototype.sendMessage = function () {
         if (this.ably) {
             var object = JSON.stringify({ msg: this.message, from: "Code" });
             this.ably.channels.get(this.channelId)
@@ -34,11 +32,11 @@ var AppComponent = (function () {
         else
             dialog.alert("You need to connect first");
     };
-    AppComponent.prototype.onMessage = function (message) {
+    MessageComponent.prototype.onMessage = function (message) {
         var json = JSON.parse(message);
         this.messagesReceived.next(json.from + ": " + json.msg);
     };
-    AppComponent.prototype.onConnectionChange = function (change) {
+    MessageComponent.prototype.onConnectionChange = function (change) {
         this.status.next(change.current);
         console.info("Connection Change State");
         if (change.current == "connecting") {
@@ -52,21 +50,22 @@ var AppComponent = (function () {
             console.error(ex);
         }
     };
-    AppComponent.prototype.disconnect = function () {
+    MessageComponent.prototype.disconnect = function () {
         this.status.next("Disconnecting");
         if (this.ably) {
             this.ably.connection.close();
             this.ably = null;
         }
     };
-    AppComponent = __decorate([
+    MessageComponent = __decorate([
         core_1.Component({
-            selector: "my-app",
-            templateUrl: "app.component.html",
+            moduleId: module.id,
+            selector: "my-message",
+            templateUrl: "./message.component.html",
         }), 
         __metadata('design:paramtypes', [core_1.NgZone])
-    ], AppComponent);
-    return AppComponent;
+    ], MessageComponent);
+    return MessageComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.MessageComponent = MessageComponent;
+//# sourceMappingURL=message.component.js.map

@@ -2,14 +2,14 @@ import {Component, NgZone} from "@angular/core";
 import * as dialog from "ui/dialogs";
 import {AblyRealtime, Message, ConnectionStateChange, ConnectionState} from "nativescript-ably"
 import {Observable, Subject} from 'rxjs';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
+
 declare var java: any;
 @Component({
-    selector: "my-app",
-    templateUrl: "app.component.html",
+    moduleId: module.id,
+    selector: "my-message",
+    templateUrl: "./message.component.html",
 })
-export class AppComponent {
+export class MessageComponent {
     private ably: AblyRealtime
     key = "I2E_JQ.tmuqtg:GXNuC29zQcu48Lez"
     channelId = "technology"
