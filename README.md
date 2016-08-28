@@ -21,7 +21,7 @@ Run the code
 
     tns livesync android --watch
 
-Get a Key in: https://jsbin.ably.io/opapoc/203/edit
+Get a Key in: https://jsbin.ably.io/opapoc/208/edit
 
 The code is using JSON.stringify to send and receive messages. 
 
@@ -33,20 +33,26 @@ $(function() {
 
   function setupChat(userName) {
     var $root = $('#' + userName);
-    var ably = new Ably.Realtime('I2E_JQ.IoeWDw:WrRgJ5LEUCCIm5Tp'),
+    var ably = new Ably.Realtime('I2E_JQ.-Txq1w:ZYNBrhgLfFi32Xrw'),
         channel = ably.channels.get(channelName),
         textField = $root.find('input[type=text]'),
         sendMessage = function() {
           if (textField.val().length > 0) {
             channel.publish('chat', JSON.stringify({ msg: textField.val(), from: userName }));
             textField.val('');
-            textField.blur();
+            textField.focus();
           }
         };
 
     channel.subscribe('chat', function(message) {
-      var msg = JSON.parse(message.data).msg;
-      var from = JSON.parse(message.data).from
+      var data;
+      if(typeof message.data === "string"){
+        data = JSON.parse(message.data);
+      }else{
+        data = message.data;
+      }
+      var msg = data.msg;
+      var from = data.from;
       var li = $('<li></li>').
                   text(msg).
                   append('<div class="from">' + from + '</div>').
