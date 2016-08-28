@@ -20,6 +20,7 @@ import {NS_ROUTER_DIRECTIVES} from 'nativescript-angular/router';
     styleUrls: ['main-page.component.css']
 })
 export class MainComponent implements OnInit {
+    icon: String
     constructor(@Inject(Page) private page: Page, private _changeDetectionRef: ChangeDetectorRef){
 
     }
@@ -32,9 +33,9 @@ export class MainComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.icon = String.fromCharCode(0xe903)
     }
     openDrawer(){
-        this.drawer.showDrawer()
+        this.drawer.toggleDrawerState()
     }
 }

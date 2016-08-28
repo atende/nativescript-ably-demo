@@ -17,3 +17,12 @@ button {
     text-align: center;
     margin: 0 20;
 } 
+.icon {
+   font-family: 'icomoon';
+   font-size: 48;
+}
+
+ActionBar {
+    background-color:  #3C5AFD;
+    color: white;
+}

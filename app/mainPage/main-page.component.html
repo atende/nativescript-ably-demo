@@ -1,3 +1,7 @@
+<ActionBar title="Ably">
+    <NavigationButton text="Go Back" icon="res://menu" (tap)="openDrawer()"></NavigationButton>
+</ActionBar>
+
 <RadSideDrawer #drawer>
     <StackLayout tkDrawerContent class="sideStackLayout">
         <StackLayout class="sideTitleStackLayout">
@@ -8,9 +12,7 @@
             <Label [nsRouterLink]="['/test']" text="Test" class="sideLabel"></Label>
         </StackLayout>
     </StackLayout>
-    <StackLayout tkMainContent>
-        <Button text="OPEN DRAWER" (tap)=openDrawer()></Button>
-
+    <StackLayout tkMainContent orientation="horizontal">
         <router-outlet></router-outlet>
     </StackLayout>
 </RadSideDrawer>

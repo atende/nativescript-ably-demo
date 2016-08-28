@@ -15,9 +15,10 @@ var MainComponent = (function () {
         this._changeDetectionRef.detectChanges();
     };
     MainComponent.prototype.ngOnInit = function () {
+        this.icon = String.fromCharCode(0xe903);
     };
     MainComponent.prototype.openDrawer = function () {
-        this.drawer.showDrawer();
+        this.drawer.toggleDrawerState();
     };
     __decorate([
         core_1.ViewChild(angular_1.RadSideDrawerComponent), 

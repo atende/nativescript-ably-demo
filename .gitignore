@@ -1,3 +1,4 @@
 node_modules/
 platforms/
 npm-debug.log
+lib/
