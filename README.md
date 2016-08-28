@@ -21,7 +21,7 @@ Run the code
 
     tns livesync android --watch
 
-Get a Key in: https://jsbin.ably.io/opapoc/202/edit
+Get a Key in: https://jsbin.ably.io/opapoc/203/edit
 
 The code is using JSON.stringify to send and receive messages. 
 
