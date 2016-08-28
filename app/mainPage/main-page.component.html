@@ -1,7 +1,16 @@
-<StackLayout orientation="vertical" xmlns="http://schemas.nativescript.org/tns.xsd" xmlns:drawer="nativescript-telerik-ui/sidedrawer" >
-<StackLayout orientation="horizontal">
-    <Label [nsRouterLink]="['/messages']" text="Messages"></Label>
-    <Label [nsRouterLink]="['/test']" text="Test"></Label>
-</StackLayout>
-    <router-outlet></router-outlet>
-</StackLayout>
+<RadSideDrawer #drawer>
+    <StackLayout tkDrawerContent class="sideStackLayout">
+        <StackLayout class="sideTitleStackLayout">
+            <Label text="Navigation Menu"></Label>
+        </StackLayout>
+        <StackLayout class="sideStackLayout">
+            <Label [nsRouterLink]="['/messages']" text="Message Example" class="sideLabel sideLightGrayLabel"></Label>
+            <Label [nsRouterLink]="['/test']" text="Test" class="sideLabel"></Label>
+        </StackLayout>
+    </StackLayout>
+    <StackLayout tkMainContent>
+        <Button text="OPEN DRAWER" (tap)=openDrawer()></Button>
+
+        <router-outlet></router-outlet>
+    </StackLayout>
+</RadSideDrawer>
