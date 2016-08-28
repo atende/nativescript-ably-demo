@@ -10,6 +10,7 @@ import {NS_ROUTER_PROVIDERS} from 'nativescript-angular/router';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/catch';
 
 nativeScriptBootstrap(MainComponent, [APP_ROUTER_PROVIDERS, SIDEDRAWER_PROVIDERS, APP_ROUTER_PROVIDERS, 
                                         NS_ROUTER_PROVIDERS, RouterOutletMap], { startPageActionBarHidden: false });

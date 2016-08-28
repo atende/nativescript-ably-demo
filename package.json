@@ -7,9 +7,6 @@
     "id": "org.nativescript.nativescriptablydemo",
     "tns-android": {
       "version": "2.2.0"
-    },
-    "tns-ios": {
-      "version": "2.2.1"
     }
   },
   "scripts": {

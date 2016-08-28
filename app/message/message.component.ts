@@ -1,7 +1,7 @@
 import {Component, NgZone} from "@angular/core";
 import * as dialog from "ui/dialogs";
 import {AblyRealtime, Message, ConnectionStateChange, ConnectionState} from "nativescript-ably"
-import {Observable, Subject} from 'rxjs';
+import {Observable, Subject, Subscription} from 'rxjs';
 
 declare var java: any;
 @Component({
@@ -11,33 +11,38 @@ declare var java: any;
 })
 export class MessageComponent {
     private ably: AblyRealtime
-    key = "I2E_JQ.tmuqtg:GXNuC29zQcu48Lez"
+    key = "I2E_JQ.-Txq1w:ZYNBrhgLfFi32Xrw"
     channelId = "technology"
     messagesReceived = new Subject<string>()
     message = ""
     status = new Subject<string>()
-    constructor(private ngZone: NgZone){
+    channelSubscription: Subscription;
+
+    constructor(private ngZone: NgZone) {
 
     }
     public connect() {
-        this.ably = new AblyRealtime(this.key)
+        if (this.ably == null) {
+            console.info("Creating a new connection")
+            this.ably = new AblyRealtime(this.key)
+        }
 
         let channel = this.ably.channels.get(this.channelId)
 
-        channel.subscribe()
-            .map(m => m.data)
-            .do((m) => console.log(m))
-            .subscribe(m => this.ngZone.run(() => this.onMessage(m)))
+        this.channelSubscription = this.subscribe()
 
-        this.ably.connection.on().subscribe(c => this.ngZone.run(() => this.onConnectionChange(c)))
+        this.ably.connection.on()
+            .subscribe(c => this.ngZone.run(() => this.onConnectionChange(c)), this.handleError)
+
     }
 
     public sendMessage() {
-
+        let message = this.message.trim() == "" ? "Default" : this.message
         if (this.ably) {
-            let object = JSON.stringify({msg: this.message, from: "Code"})
+            let object = JSON.stringify({ msg: message, from: "Code" })
             this.ably.channels.get(this.channelId)
                 .publishData("chat", object)
+                .catch(this.handleError)
                 .subscribe()
         }
         else
@@ -46,15 +51,15 @@ export class MessageComponent {
 
     public onMessage(message: any) {
         let json = JSON.parse(message)
-        this.messagesReceived.next(json.from + ": " +json.msg)
+        this.messagesReceived.next(json.from + ": " + json.msg)
     }
 
     public onConnectionChange(change: ConnectionStateChange) {
         this.status.next(change.current)
-    
+
         console.info("Connection Change State")
         if (change.current == "connecting") {
-             
+
             console.info("We are connecting to the server")
         }
         try {
@@ -68,9 +73,35 @@ export class MessageComponent {
     public disconnect() {
         this.status.next("Disconnecting")
         if (this.ably) {
+            console.info(this.ably.connection.key)
             this.ably.connection.close()
             this.ably = null;
         }
+    }
 
+    unsubscribe() {
+        if (this.channelSubscription) {
+            this.channelSubscription.unsubscribe()
+        }
+    }
+    subscribe() {
+        if (this.ably) {
+            let channel = this.ably.channels.get(this.channelId)
+            return channel.subscribe()
+                .map(m => m.data)
+                .do((m) => console.log(m))
+                .catch(this.handleError) // If the connection throws any error
+                .subscribe(m => this.ngZone.run(() => this.onMessage(m)), this.handleError)
+
+        }else{
+            return null;
+        }
+    }
+
+    handleError(e) {
+        console.error("A error has catch by observer: ")
+        console.error(e)
+        dialog.alert(e.message)
+        return Observable.empty()
     }
 }

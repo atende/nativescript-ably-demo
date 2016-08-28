@@ -8,6 +8,7 @@ var router_1 = require('@angular/router');
 var router_2 = require('nativescript-angular/router');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/do');
+require('rxjs/add/operator/catch');
 application_1.nativeScriptBootstrap(main_page_component_1.MainComponent, [app_routes_1.APP_ROUTER_PROVIDERS, angular_1.SIDEDRAWER_PROVIDERS, app_routes_1.APP_ROUTER_PROVIDERS,
     router_2.NS_ROUTER_PROVIDERS, router_1.RouterOutletMap], { startPageActionBarHidden: false });
 //# sourceMappingURL=main.js.map

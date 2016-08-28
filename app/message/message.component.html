@@ -1,10 +1,15 @@
-<StackLayout>
-    <Button text="Connect" (tap)="connect()"></Button>
-    <Button text="Disconnect" (tap)="disconnect()"></Button>
-    <TextField hint="Enter your message" [(ngModel)]="message" #mText></TextField>
-    <Button text="Send message" (tap)="sendMessage()"></Button>
-    <TextField hint="Key" [(ngModel)]="key"></TextField>
-    <Label [text]="channelId"></Label>
-    <Label [text]="status | async" class="message" textWrap="true"></Label>
-    <Label [text]="messagesReceived | async" class="message" textWrap="true"></Label>
-</StackLayout>
+<ScrollView>
+    <StackLayout>
+        <Label text="Example of connection and message API"></Label>
+        <Button text="Connect" (tap)="connect()"></Button>
+        <Button text="Disconnect" (tap)="disconnect()"></Button>
+        <Button text="Unsubscribe" (tap)="unsubscribe()"></Button>
+        <Button text="Subscribe Again" (tap)="subscribe()"></Button>
+        <TextField hint="Enter your message" [(ngModel)]="message" #mText></TextField>
+        <Button text="Send message" (tap)="sendMessage()"></Button>
+        <TextField hint="Key" [(ngModel)]="key"></TextField>
+        <Label [text]="channelId"></Label>
+        <Label [text]="status | async" class="message" textWrap="true"></Label>
+        <Label [text]="messagesReceived | async" class="message" textWrap="true"></Label>
+    </StackLayout>
+</ScrollView>
