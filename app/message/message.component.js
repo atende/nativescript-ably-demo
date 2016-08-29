@@ -2,7 +2,7 @@
 var core_1 = require("@angular/core");
 var dialog = require("ui/dialogs");
 var nativescript_ably_1 = require("nativescript-ably");
-var rxjs_1 = require('rxjs');
+var rxjs_1 = require("rxjs");
 var MessageComponent = (function () {
     function MessageComponent(ngZone) {
         this.ngZone = ngZone;
@@ -11,7 +11,11 @@ var MessageComponent = (function () {
         this.messagesReceived = new rxjs_1.Subject();
         this.message = "";
         this.status = new rxjs_1.Subject();
+        this.icon = "";
     }
+    MessageComponent.prototype.ngOnInit = function () {
+        this.icon = String.fromCharCode(0xe963);
+    };
     MessageComponent.prototype.connect = function () {
         var _this = this;
         if (this.ably == null) {

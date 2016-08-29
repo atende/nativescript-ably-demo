@@ -6,7 +6,7 @@
         <Button text="Unsubscribe" (tap)="unsubscribe()"></Button>
         <Button text="Subscribe Again" (tap)="subscribe()"></Button>
         <TextField hint="Enter your message" [(ngModel)]="message" #mText></TextField>
-        <Button text="Send message" (tap)="sendMessage()"></Button>
+        <Button class="icon" text="Send message {{icon}}" (tap)="sendMessage()"></Button>
         <TextField hint="Key" [(ngModel)]="key"></TextField>
         <Label [text]="channelId"></Label>
         <Label [text]="status | async" class="message" textWrap="true"></Label>

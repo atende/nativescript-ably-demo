@@ -3,8 +3,7 @@ var core_1 = require("@angular/core");
 var page_1 = require("ui/page");
 var angular_1 = require("nativescript-telerik-ui/sidedrawer/angular");
 var router_1 = require("@angular/router");
-var router_2 = require('nativescript-angular/router');
-// import {NS_ROUTER_DIRECTIVES} from 'nativescript-angular/router'
+var router_2 = require("nativescript-angular/router");
 var MainComponent = (function () {
     function MainComponent(page, _changeDetectionRef) {
         this.page = page;
@@ -17,7 +16,7 @@ var MainComponent = (function () {
     MainComponent.prototype.ngOnInit = function () {
         this.icon = String.fromCharCode(0xe903);
     };
-    MainComponent.prototype.openDrawer = function () {
+    MainComponent.prototype.changeDrawer = function () {
         this.drawer.toggleDrawerState();
     };
     __decorate([

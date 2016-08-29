@@ -1,16 +1,11 @@
 
-import { Component, ElementRef, ViewChild, Inject, OnInit, ChangeDetectorRef } from "@angular/core";
-import { View } from "ui/core/view";
-import { RadSideDrawer } from "nativescript-telerik-ui/sidedrawer";
-import { Page } from "ui/page";
-import { ActionItem } from "ui/action-bar";
-import sideDrawerModule = require('nativescript-telerik-ui/sidedrawer');
-import * as ObservableModule from "data/observable";
-import { RadSideDrawerComponent, SideDrawerType } from "nativescript-telerik-ui/sidedrawer/angular";
+import {Component, ViewChild, Inject, OnInit, ChangeDetectorRef} from "@angular/core";
+import {Page} from "ui/page";
+import {RadSideDrawerComponent, SideDrawerType} from "nativescript-telerik-ui/sidedrawer/angular";
 import {ROUTER_DIRECTIVES} from "@angular/router";
-import {NS_ROUTER_DIRECTIVES} from 'nativescript-angular/router';
+import {NS_ROUTER_DIRECTIVES} from "nativescript-angular/router";
+import sideDrawerModule = require('nativescript-telerik-ui/sidedrawer');
 
-// import {NS_ROUTER_DIRECTIVES} from 'nativescript-angular/router'
 
 @Component({
     moduleId: module.id,
@@ -35,7 +30,7 @@ export class MainComponent implements OnInit {
     ngOnInit() {
         this.icon = String.fromCharCode(0xe903)
     }
-    openDrawer(){
+    changeDrawer(){
         this.drawer.toggleDrawerState()
     }
 }

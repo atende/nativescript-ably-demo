@@ -1,5 +1,5 @@
 <ActionBar title="Ably">
-    <NavigationButton text="Go Back" icon="res://menu" (tap)="openDrawer()"></NavigationButton>
+    <NavigationButton text="Go Back" icon="res://menu" (tap)="changeDrawer()"></NavigationButton>
 </ActionBar>
 
 <RadSideDrawer #drawer>
@@ -8,11 +8,12 @@
             <Label text="Navigation Menu"></Label>
         </StackLayout>
         <StackLayout class="sideStackLayout">
-            <Label [nsRouterLink]="['/messages']" text="Message Example" class="sideLabel sideLightGrayLabel"></Label>
-            <Label [nsRouterLink]="['/test']" text="Test" class="sideLabel"></Label>
+            <Label (tap)="changeDrawer()" [nsRouterLink]="['/messages']" text="Message Example" class="sideLabel sideLightGrayLabel"></Label>
+            <Label (tap)="changeDrawer()" [nsRouterLink]="['/test']" text="Test" class="sideLabel"></Label>
         </StackLayout>
     </StackLayout>
     <StackLayout tkMainContent orientation="horizontal">
+        <Label class="icon" text="{{icon}}"></Label>
         <router-outlet></router-outlet>
     </StackLayout>
 </RadSideDrawer>

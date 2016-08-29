@@ -1,7 +1,7 @@
 import {Component, NgZone} from "@angular/core";
 import * as dialog from "ui/dialogs";
-import {AblyRealtime, Message, ConnectionStateChange, ConnectionState} from "nativescript-ably"
-import {Observable, Subject, Subscription} from 'rxjs';
+import {AblyRealtime, ConnectionStateChange} from "nativescript-ably";
+import {Observable, Subject, Subscription} from "rxjs";
 
 declare var java: any;
 @Component({
@@ -17,9 +17,12 @@ export class MessageComponent {
     message = ""
     status = new Subject<string>()
     channelSubscription: Subscription;
-
+    icon = ""
     constructor(private ngZone: NgZone) {
 
+    }
+    ngOnInit() {
+        this.icon = String.fromCharCode(0xe963)
     }
     public connect() {
         if (this.ably == null) {

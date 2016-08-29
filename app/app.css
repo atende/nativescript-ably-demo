@@ -2,10 +2,6 @@
     horizontal-align: center;    
 }
 
-button {
-    font-size: 36;
-}
-
 .title {
     font-size: 30;
     margin: 20;
@@ -13,13 +9,12 @@ button {
 
 .message {
     font-size: 20;
-    color: #284848;
+    color: #134816;
     text-align: center;
     margin: 0 20;
 } 
 .icon {
    font-family: 'icomoon';
-   font-size: 48;
 }
 
 ActionBar {
