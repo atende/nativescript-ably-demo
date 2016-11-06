@@ -2,13 +2,10 @@
 var angular_1 = require("nativescript-telerik-ui/sidedrawer/angular");
 var angular_2 = require('nativescript-telerik-ui/listview/angular');
 var router_1 = require("nativescript-angular/router");
-var platform_1 = require("nativescript-angular/platform");
-var forms_1 = require("nativescript-angular/forms");
 var core_1 = require("@angular/core");
+var shared_module_1 = require("./shared/shared.module");
 var app_routes_1 = require("./app.routes");
 var main_page_component_1 = require("./mainPage/main-page.component");
-var message_component_1 = require("./message/message.component");
-var test_component_1 = require("./test/test.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -20,18 +17,15 @@ var AppModule = (function () {
             declarations: [
                 angular_2.LISTVIEW_DIRECTIVES,
                 angular_1.SIDEDRAWER_DIRECTIVES,
-                main_page_component_1.MainComponent,
-                message_component_1.MessageComponent,
-                test_component_1.TestComponent
+                main_page_component_1.MainComponent
             ],
             imports: [
-                platform_1.NativeScriptModule,
-                forms_1.NativeScriptFormsModule,
+                shared_module_1.SharedModule,
                 router_1.NativeScriptRouterModule,
+                app_routes_1.RouteModuleComponent,
                 router_1.NativeScriptRouterModule.forRoot(app_routes_1.routes)
             ],
             exports: [
-                platform_1.NativeScriptModule,
                 router_1.NativeScriptRouterModule
             ]
         }), 

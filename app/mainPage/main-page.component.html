@@ -8,8 +8,7 @@
             <Label text="Navigation Menu"></Label>
         </StackLayout>
         <StackLayout class="sideStackLayout">
-            <Label (tap)="changeDrawer()" [nsRouterLink]="['/messages']" text="Message Example" class="sideLabel sideLightGrayLabel"></Label>
-            <Label (tap)="changeDrawer()" [nsRouterLink]="['/test']" text="Test" class="sideLabel"></Label>
+            <Label *ngFor="let r of routes" (tap)="changeDrawer()" [nsRouterLink]="[r.path]" [text]="extractTextLabelFromRouteData(r)" class="sideLabel sideLightGrayLabel"></Label>
         </StackLayout>
     </StackLayout>
     <StackLayout tkMainContent orientation="horizontal">
