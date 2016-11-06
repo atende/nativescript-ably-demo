@@ -1,14 +1,9 @@
-import {RouterConfig} from "@angular/router"
+import {Routes} from "@angular/router"
 import {MessageComponent} from "./message"
 import {TestComponent} from "./test/test.component"
-import {nsProvideRouter} from 'nativescript-angular/router';
 
-const routes: RouterConfig = [
-    { path: "", redirectTo: "/messages", terminal: true },
+export const routes: Routes = [
+    { path: "", redirectTo: "messages", pathMatch: "full"},
     { path: "messages", component: MessageComponent },
     { path: "test", component: TestComponent }
-];
-
-export const APP_ROUTER_PROVIDERS = [
-    nsProvideRouter(routes, { enableTracing: false })
 ];

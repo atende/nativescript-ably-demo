@@ -2,8 +2,6 @@
 var core_1 = require("@angular/core");
 var page_1 = require("ui/page");
 var angular_1 = require("nativescript-telerik-ui/sidedrawer/angular");
-var router_1 = require("@angular/router");
-var router_2 = require("nativescript-angular/router");
 var MainComponent = (function () {
     function MainComponent(page, _changeDetectionRef) {
         this.page = page;
@@ -27,7 +25,6 @@ var MainComponent = (function () {
         core_1.Component({
             moduleId: module.id,
             selector: 'ably-demo',
-            directives: [router_1.ROUTER_DIRECTIVES, router_2.NS_ROUTER_DIRECTIVES],
             templateUrl: 'main-page.component.html',
             styleUrls: ['main-page.component.css']
         }),

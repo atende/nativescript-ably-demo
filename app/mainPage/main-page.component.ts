@@ -2,15 +2,12 @@
 import {Component, ViewChild, Inject, OnInit, ChangeDetectorRef} from "@angular/core";
 import {Page} from "ui/page";
 import {RadSideDrawerComponent, SideDrawerType} from "nativescript-telerik-ui/sidedrawer/angular";
-import {ROUTER_DIRECTIVES} from "@angular/router";
-import {NS_ROUTER_DIRECTIVES} from "nativescript-angular/router";
 import sideDrawerModule = require('nativescript-telerik-ui/sidedrawer');
 
 
 @Component({
     moduleId: module.id,
     selector: 'ably-demo',
-    directives: [ROUTER_DIRECTIVES, NS_ROUTER_DIRECTIVES],
     templateUrl: 'main-page.component.html',
     styleUrls: ['main-page.component.css']
 })

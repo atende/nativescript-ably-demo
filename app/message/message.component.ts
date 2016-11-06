@@ -30,8 +30,6 @@ export class MessageComponent {
             this.ably = new AblyRealtime(this.key)
         }
 
-        let channel = this.ably.channels.get(this.channelId)
-
         this.channelSubscription = this.subscribe()
 
         this.ably.connection.on()
@@ -53,7 +51,7 @@ export class MessageComponent {
     }
 
     public onMessage(message: any) {
-        let json = JSON.parse(message)
+        let json = message
         this.messagesReceived.next(json.from + ": " + json.msg)
     }
 
@@ -92,9 +90,10 @@ export class MessageComponent {
             let channel = this.ably.channels.get(this.channelId)
             return channel.subscribe()
                 .map(m => m.data)
+                .map(m => JSON.parse(m))
                 .do((m) => console.log(m))
                 .catch(this.handleError) // If the connection throws any error
-                .subscribe(m => this.ngZone.run(() => this.onMessage(m)), this.handleError)
+                .subscribe(m => this.ngZone.run(() => this.onMessage(m)))
 
         }else{
             return null;

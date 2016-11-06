@@ -22,7 +22,6 @@ var MessageComponent = (function () {
             console.info("Creating a new connection");
             this.ably = new nativescript_ably_1.AblyRealtime(this.key);
         }
-        var channel = this.ably.channels.get(this.channelId);
         this.channelSubscription = this.subscribe();
         this.ably.connection.on()
             .subscribe(function (c) { return _this.ngZone.run(function () { return _this.onConnectionChange(c); }); }, this.handleError);
@@ -40,7 +39,7 @@ var MessageComponent = (function () {
             dialog.alert("You need to connect first");
     };
     MessageComponent.prototype.onMessage = function (message) {
-        var json = JSON.parse(message);
+        var json = message;
         this.messagesReceived.next(json.from + ": " + json.msg);
     };
     MessageComponent.prototype.onConnectionChange = function (change) {
@@ -76,9 +75,10 @@ var MessageComponent = (function () {
             var channel = this.ably.channels.get(this.channelId);
             return channel.subscribe()
                 .map(function (m) { return m.data; })
+                .map(function (m) { return JSON.parse(m); })
                 .do(function (m) { return console.log(m); })
                 .catch(this.handleError) // If the connection throws any error
-                .subscribe(function (m) { return _this.ngZone.run(function () { return _this.onMessage(m); }); }, this.handleError);
+                .subscribe(function (m) { return _this.ngZone.run(function () { return _this.onMessage(m); }); });
         }
         else {
             return null;
