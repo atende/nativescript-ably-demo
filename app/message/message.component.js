@@ -5,16 +5,34 @@ var nativescript_ably_1 = require("nativescript-ably");
 var rxjs_1 = require("rxjs");
 var MessageComponent = (function () {
     function MessageComponent(ngZone) {
+        var _this = this;
         this.ngZone = ngZone;
-        this.key = "I2E_JQ.-Txq1w:ZYNBrhgLfFi32Xrw";
+        this.key = "I2E_JQ.ypqBeg:XbiKg42L_eMeO4Pj";
         this.channelId = "technology";
         this.messagesReceived = new rxjs_1.Subject();
         this.message = "";
         this.status = new rxjs_1.Subject();
         this.icon = "";
+        this.history = [];
+        this.worker = new Worker("./worker");
+        this.worker.onmessage = function (msg) {
+            // this.history = msg.data.items()
+            _this.history = msg.data;
+            dialog.alert(_this.history);
+            _this.worker.terminate();
+        };
+        this.worker.onerror = function (e) {
+            console.error("Fuck: " + e.message);
+        };
     }
     MessageComponent.prototype.ngOnInit = function () {
         this.icon = String.fromCharCode(0xe963);
+        this.connect();
+    };
+    MessageComponent.prototype.ngOnDestroy = function () {
+        if (this.worker != null) {
+            this.worker.terminate();
+        }
     };
     MessageComponent.prototype.connect = function () {
         var _this = this;
@@ -83,6 +101,14 @@ var MessageComponent = (function () {
         else {
             return null;
         }
+    };
+    MessageComponent.prototype.getHistory = function () {
+        var _this = this;
+        this.ngZone.runOutsideAngular(function () {
+            console.info("Try running the worker");
+            var channel = _this.ably.channels.get(_this.channelId);
+            _this.worker.postMessage(channel.facade);
+        });
     };
     MessageComponent.prototype.handleError = function (e) {
         console.error("A error has catch by observer: ");

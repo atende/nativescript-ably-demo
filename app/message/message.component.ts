@@ -1,7 +1,7 @@
-import {Component, NgZone} from "@angular/core";
+import { Component, NgZone } from "@angular/core";
 import * as dialog from "ui/dialogs";
-import {AblyRealtime, ConnectionStateChange} from "nativescript-ably";
-import {Observable, Subject, Subscription} from "rxjs";
+import { AblyRealtime, ConnectionStateChange } from "nativescript-ably";
+import { Observable, Subject, Subscription } from "rxjs";
 
 declare var java: any;
 @Component({
@@ -11,18 +11,35 @@ declare var java: any;
 })
 export class MessageComponent {
     private ably: AblyRealtime
-    key = "I2E_JQ.-Txq1w:ZYNBrhgLfFi32Xrw"
+    key = "I2E_JQ.ypqBeg:XbiKg42L_eMeO4Pj"
     channelId = "technology"
     messagesReceived = new Subject<string>()
     message = ""
     status = new Subject<string>()
     channelSubscription: Subscription;
     icon = ""
+    history = []
+    worker: Worker
     constructor(private ngZone: NgZone) {
-
+        this.worker = new Worker("./worker")
+        this.worker.onmessage = (msg) => {
+            // this.history = msg.data.items()
+            this.history = msg.data
+            dialog.alert(this.history)
+            this.worker.terminate()
+        }
+        this.worker.onerror = (e) => {
+            console.error("Fuck: " + e.message);
+        }
     }
     ngOnInit() {
         this.icon = String.fromCharCode(0xe963)
+        this.connect()
+    }
+    ngOnDestroy() {
+        if (this.worker != null) {
+            this.worker.terminate()
+        }
     }
     public connect() {
         if (this.ably == null) {
@@ -95,9 +112,19 @@ export class MessageComponent {
                 .catch(this.handleError) // If the connection throws any error
                 .subscribe(m => this.ngZone.run(() => this.onMessage(m)))
 
-        }else{
+        } else {
             return null;
         }
+    }
+
+    getHistory() {
+        this.ngZone.runOutsideAngular(() => {
+            console.info("Try running the worker")
+            let channel:any = this.ably.channels.get(this.channelId)
+            this.worker.postMessage(channel.facade)
+
+        })
+
     }
 
     handleError(e) {

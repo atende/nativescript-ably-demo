@@ -6,39 +6,40 @@
   "nativescript": {
     "id": "org.nativescript.nativescriptablydemo",
     "tns-android": {
-      "version": "2.3.0"
+      "version": "2.4.1"
     }
   },
   "scripts": {
     "live.android": "tns plugin remove nativescript-ably && tns plugin add ../nativescript-ably && tns livesync android --watch"
   },
   "dependencies": {
-    "@angular/common": "2.1.2",
-    "@angular/compiler": "2.1.2",
-    "@angular/core": "2.1.2",
-    "@angular/platform-browser": "2.1.2",
-    "@angular/platform-browser-dynamic": "2.1.2",
-    "@angular/router": "3.1.2",
-    "nativescript-ably": "file:../nativescript-ably",
-    "nativescript-angular": "1.1.2",
+    "@angular/common": "2.4.2",
+    "@angular/compiler": "2.4.2",
+    "@angular/core": "2.4.2",
+    "@angular/platform-browser": "2.4.2",
+    "@angular/platform-browser-dynamic": "2.4.2",
+    "@angular/router": "3.4.2",
+    "nativescript-ably": "file:../nativescript-ably/dist",
+    "nativescript-angular": "1.3.0",
     "nativescript-fresco": "^1.0.12",
-    "nativescript-intl": "^0.0.4",
-    "nativescript-telerik-ui": "1.4.1",
+    "nativescript-intl": "^0.0.10",
+    "nativescript-telerik-ui": "1.5.1",
     "nativescript-unit-test-runner": "^0.3.3",
-    "punycode": "2.0.1",
+    "punycode": "2.1.0",
     "querystring": "0.2.0",
     "reflect-metadata": "^0.1.8",
-    "rxjs": "5.0.0-beta.12",
-    "tns-core-modules": "2.3.0",
+    "rxjs": "5.0.3",
+    "tns-core-modules": "^2.4.4",
     "url": "0.11.0",
-    "zone.js": "^0.6.26"
+    "zone.js": "^0.7.4"
   },
   "devDependencies": {
-    "babel-traverse": "6.18.0",
-    "babel-types": "6.18.0",
-    "babylon": "6.13.1",
+    "babel-traverse": "6.21.0",
+    "babel-types": "6.21.0",
+    "babylon": "6.15.0",
     "lazy": "1.0.11",
+    "nativescript-dev-android-snapshot": "^0.*.*",
     "nativescript-dev-typescript": "^0.3.2",
-    "typescript": "^2.0.7"
+    "typescript": "~2.0.10"
   }
 }

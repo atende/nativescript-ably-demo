@@ -21,7 +21,7 @@ export class RouteModuleComponent {
 
 }
 
-export const routes: Routes = [
+export const routes = [
     { path: "", redirectTo: "messages", pathMatch: "full", data: {label: "Home"} },
     { path: "messages", component: MessageComponent, data: {label: 'Messages'} },
     { path: "auth", component: AuthComponent, data: {label: "Auth"} }

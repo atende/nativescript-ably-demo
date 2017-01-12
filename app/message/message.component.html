@@ -5,11 +5,14 @@
         <Button text="Disconnect" (tap)="disconnect()"></Button>
         <Button text="Unsubscribe" (tap)="unsubscribe()"></Button>
         <Button text="Subscribe Again" (tap)="subscribe()"></Button>
+        <Button text="History" (tap)="getHistory()"></Button>
         <TextField hint="Enter your message" [(ngModel)]="message" #mText></TextField>
         <Button class="icon" text="Send message {{icon}}" (tap)="sendMessage()"></Button>
         <TextField hint="Key" [(ngModel)]="key"></TextField>
         <Label [text]="channelId"></Label>
         <Label [text]="status | async" class="message" textWrap="true"></Label>
         <Label [text]="messagesReceived | async" class="message" textWrap="true"></Label>
+        <Label [text]="history | json" textWrap="true"></Label>
+        
     </StackLayout>
 </ScrollView>

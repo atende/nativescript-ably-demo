@@ -1,4 +1,5 @@
-import {Component} from "@angular/core";
+import { Component } from "@angular/core";
+import { AblyRealtime } from "nativescript-ably";
 
 @Component({
     moduleId: module.id,
@@ -6,5 +7,14 @@ import {Component} from "@angular/core";
     templateUrl: 'auth.component.html'
 })
 export class AuthComponent {
+    ably: AblyRealtime
+    constructor(){
+        this.ably = new AblyRealtime({authUrl: 'http://my.website.com/auth'})
+    }
 
+    createRequestToken(){
+        // this.ably.auth.createTokenRequest({clientId: 'id'}, function(err, tokenRequest){
+
+        // })
+    }
 }

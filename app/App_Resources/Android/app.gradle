@@ -8,15 +8,22 @@
 android {  
   defaultConfig {  
     generatedDensities = []
-    applicationId = "org.nativescript.nativescriptablydemo"  
+    applicationId = "org.nativescript.nativescriptablydemo" 
+    
+    //override supported platforms
+    // ndk {
+    //       abiFilters.clear()
+    //   		abiFilters "armeabi-v7a"
+ 		// }
+  
   }  
   aaptOptions {  
     additionalParameters "--no-version-vectors"  
-  }  
-}
-repositories {
-  maven { url "https://raw.github.com/paddybyers/Java-WebSocket/mvn-repo/" }
+  } 
+  repositories {
+    maven { url "https://raw.github.com/paddybyers/Java-WebSocket/mvn-repo/" }
+  } 
+  dependencies {
+    compile 'io.ably:ably-java:0.8.2'
+  } 
 } 
-dependencies {
-  compile 'io.ably:ably-java:0.8.2'
-}
