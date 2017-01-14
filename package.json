@@ -10,7 +10,7 @@
     }
   },
   "scripts": {
-    "live.android": "tns plugin remove nativescript-ably && tns plugin add ../nativescript-ably && tns livesync android --watch"
+    "live.android": "tns plugin remove nativescript-ably && tns plugin add ../nativescript-ably/dist && tns platform remove android && tns platform add android && tns run android --watch"
   },
   "dependencies": {
     "@angular/common": "2.4.2",

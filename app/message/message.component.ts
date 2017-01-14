@@ -1,7 +1,11 @@
-import { Component, NgZone } from "@angular/core";
+import { Component, NgZone, OnInit, OnDestroy } from "@angular/core";
 import * as dialog from "ui/dialogs";
 import { AblyRealtime, ConnectionStateChange } from "nativescript-ably";
-import { Observable, Subject, Subscription } from "rxjs";
+import {Param} from "nativescript-ably/api/common"
+import { Observable } from "rxjs/Observable";
+import { Subscription } from "rxjs/Subscription";
+import { Subject } from "rxjs/Subject"
+import "rxjs/add/observable/empty";
 
 declare var java: any;
 @Component({
@@ -9,9 +13,9 @@ declare var java: any;
     selector: "my-message",
     templateUrl: "./message.component.html",
 })
-export class MessageComponent {
+export class MessageComponent implements OnInit, OnDestroy {
     private ably: AblyRealtime
-    key = "I2E_JQ.ypqBeg:XbiKg42L_eMeO4Pj"
+    key = "I2E_JQ.m_j9kQ:Lhq1HyC3KUF9doOo"
     channelId = "technology"
     messagesReceived = new Subject<string>()
     message = ""
@@ -19,27 +23,15 @@ export class MessageComponent {
     channelSubscription: Subscription;
     icon = ""
     history = []
-    worker: Worker
     constructor(private ngZone: NgZone) {
-        this.worker = new Worker("./worker")
-        this.worker.onmessage = (msg) => {
-            // this.history = msg.data.items()
-            this.history = msg.data
-            dialog.alert(this.history)
-            this.worker.terminate()
-        }
-        this.worker.onerror = (e) => {
-            console.error("Fuck: " + e.message);
-        }
+
     }
     ngOnInit() {
         this.icon = String.fromCharCode(0xe963)
         this.connect()
     }
     ngOnDestroy() {
-        if (this.worker != null) {
-            this.worker.terminate()
-        }
+        this.channelSubscription.unsubscribe()
     }
     public connect() {
         if (this.ably == null) {
@@ -118,13 +110,25 @@ export class MessageComponent {
     }
 
     getHistory() {
-        this.ngZone.runOutsideAngular(() => {
-            console.info("Try running the worker")
-            let channel:any = this.ably.channels.get(this.channelId)
-            this.worker.postMessage(channel.facade)
+        console.info("Getting history")
 
-        })
+        try {
+            let param = new Param("untilAttach", "true")
 
+            let params = [param]
+            this.ngZone.runOutsideAngular(() => {
+                if (this.ably) {
+                    this.ably.channels.get(this.channelId).history(params).then(_ => {
+                        this.history = _
+                        dialog.alert(JSON.stringify(_))
+                    }).catch(_ => dialog.alert(_))
+                }
+            })
+
+        }catch(e) {
+            console.error(e)
+        }
+        
     }
 
     handleError(e) {
